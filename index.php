@@ -25,6 +25,7 @@ $liens = $req->fetchAll(PDO::FETCH_ASSOC);
 
 // Si le lien existe, la requete nous renvoi un tableau de taille 1
 if (sizeof($liens) !== 0) {
+  echo '<h1>Le lien existe déjà</h1>';
   // Si le lien existe en rien faire
 }else{
    // Si le lien existe pas
