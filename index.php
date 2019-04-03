@@ -5,12 +5,18 @@ require 'assets/config/bootstrap.php';
 
 
 <?php 
+
+
+
+
 // Récuperer l'url de notre site + /// + le lien de l'image
 $link = $_SERVER['REQUEST_URI'];
+$linkExploded = explode('///',$link);
 // Séparer notre URL et celui de l'image
 // Source correspond au lien de l'image
-$source = explode('///',$link)[1];
-
+if (sizeof($linkExploded) > 1 && $linkExploded[1]!=='') {
+  $source = explode('///',$link)[1];
+}
 
  // Rechercher le lien sur mySQL
 $req = $pdo->prepare(
@@ -27,7 +33,10 @@ $liens = $req->fetchAll(PDO::FETCH_ASSOC);
 if (sizeof($liens) !== 0) {
   echo '<h1>Le lien existe déjà</h1>';
   // Si le lien existe en rien faire
-}else{
+}elseif(!isset($source)){
+  // echo 'entrer une url';
+}
+  else{
    // Si le lien existe pas
    // Ajouter le lien sur mySQL
 $req = $pdo->prepare(
@@ -51,9 +60,11 @@ $liens = $req->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
+
+
+
+
 <!-- AFFICHER LES IMAGES  -->
 <?php foreach ($liens as $lien):?>
 <img style='display:block;' src=<?=$lien['source']?> alt="">
 <?php endforeach;?>
-
-
