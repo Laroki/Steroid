@@ -6,10 +6,12 @@ require 'assets/config/bootstrap.php';
 <?php 
 // Récuperer l'url de notre site + /// + le lien de l'image
 $link = $_SERVER['REQUEST_URI'];
-$linkExploded = explode('///',$link);
 // Séparer notre URL et celui de l'image
-// Source correspond au lien de l'image
-if (sizeof($linkExploded) > 1 && $linkExploded[1]!=='') {
+$linkExploded = explode('///',$link);
+
+// Vérifier si il existe une URL après les /// et qu'il est différent de ''
+if ($linkExploded[1] && $linkExploded[1]!=='') {
+  // Source correspond au lien de l'image
   $source = explode('///',$link)[1];
 }
 
