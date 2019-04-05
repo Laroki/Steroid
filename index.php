@@ -29,7 +29,10 @@ if ($liens) {
   // Si le lien existe
   echo '<h1>Le lien existe déjà</h1>';
 }else{
-  // Si le lien existe pas
+  // Si le lien existe pas et qu'il est différent de ''
+  if ($source) {
+  
+  
   // Ajouter le lien sur mySQL
   $req = $pdo->prepare(
     "INSERT INTO liens VALUES ( '', :source, 'none', 'none', 'none' )
@@ -37,6 +40,7 @@ if ($liens) {
   );
   $req->bindParam(':source', $source);
   $req->execute();
+  }
   
 }
  // Rechercher les liens sur mySQL
