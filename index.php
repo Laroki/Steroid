@@ -10,7 +10,7 @@ $link = $_SERVER['REQUEST_URI'];
 $linkExploded = explode('///',$link);
 
 // Vérifier si il existe une URL après les /// et qu'il est différent de ''
-if ($linkExploded[1] && $linkExploded[1]!=='') {
+if (sizeof($linkExploded) > 1 && $linkExploded[1]!=='') {
   // Source correspond au lien de l'image
   $source = explode('///',$link)[1];
 }
@@ -30,7 +30,7 @@ $liens = $req->fetch(PDO::FETCH_ASSOC);
 if ($liens) {
   // Si le lien existe
   echo '<h1>Le lien existe déjà</h1>';
-}elseif ($source) {
+}elseif ($source) {  
   // Si le lien existe pas et qu'il est différent de ''
   // Ajouter le lien sur mySQL
   $req = $pdo->prepare(
