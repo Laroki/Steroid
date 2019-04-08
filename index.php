@@ -15,7 +15,8 @@ if (sizeof($linkExploded) > 1 && $linkExploded[1]!=='') {
   $source = explode('///',$link)[1];
 }
 
- // Rechercher le lien sur mySQL
+try {
+  // Rechercher le lien sur mySQL
 $req = $pdo->prepare(
   'SELECT source
   FROM liens
@@ -24,10 +25,15 @@ $req = $pdo->prepare(
 $req->bindParam(':source', $source);
 $req->execute();
 
-$liens = $req->fetch(PDO::FETCH_ASSOC);
+$lien = $req->fetch(PDO::FETCH_ASSOC);
+  
+} catch (Exception $e) {
+  echo 'Exception reçue : ',  $e->getMessage(), "\n";
+}
 
 
-if ($liens) {
+
+if ($lien) {
   // Si le lien existe
   echo '<h1>Le lien existe déjà</h1>';
 }elseif ($source) {  
@@ -42,7 +48,7 @@ if ($liens) {
   
   
 }
- // Rechercher les liens sur mySQL
+ // Rechercher les liens sur mySQL pour les affichers sur la page 
 $req = $pdo->prepare(
   'SELECT source
   FROM liens
