@@ -48,7 +48,7 @@ if ($lien) {
   
   
 }
- // Rechercher les liens sur mySQL pour les affichers sur la page 
+ // Rechercher les liens sur mySQL pour les afficher sur la page 
 $req = $pdo->prepare(
   'SELECT source
   FROM liens
